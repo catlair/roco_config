@@ -52,4 +52,4 @@ export class SkillDes {
   }
 }
 
-export type skillDesJSON = ReturnType<SkillDes['getAllDesJSON']>
+export type SkillDesType = ReturnType<SkillDes['getAllDesJSON']>

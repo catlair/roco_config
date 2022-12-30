@@ -9,9 +9,13 @@ export const config = {
 
 export async function middleware(request: NextRequest, response: NextResponse) {
   if (!(await isAuthenticated(request, response))) {
-    return new NextResponse(
-      JSON.stringify({ code: 401, message: 'authentication failed' }),
-      { status: 401, headers: { 'content-type': 'application/json' } }
-    )
+    const { origin, pathname } = new URL(request.url)
+    if (pathname.startsWith('/api')) {
+      return new NextResponse(
+        JSON.stringify({ code: 401, message: 'authentication failed' }),
+        { status: 401, headers: { 'content-type': 'application/json' } }
+      )
+    }
+    return NextResponse.redirect(`${origin}/login`)
   }
 }

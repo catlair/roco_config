@@ -1,3 +1,4 @@
+import { getPetProperty } from './local'
 import { domParser, getNumber } from './xml'
 
 function getFeatures(node: Element) {
@@ -89,19 +90,14 @@ export class PetDes {
   }
 }
 
-let props: PetDesType['property'] | undefined
-
 /**
  * 设置系别
  */
-export function setFeatures(
-  features: number[],
-  propertys?: PetDesType['property']
-) {
-  if (propertys) props = propertys
+export function setFeatures(features: number[]) {
+  const props = getPetProperty()
   if (!props) return '解析错误'
-  if (features.length === 1) return props[features[0] - 1].name
-  return features.map((f) => props![f - 1].name).join('、')
+  if (features.length === 1) return props[features[0]]
+  return features.map((f) => props![f - 1]).join('、')
 }
 
 let groups: PetDesType['groupType'] | undefined

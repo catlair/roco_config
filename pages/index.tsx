@@ -1,110 +1,154 @@
-import { PetDesType, setFeatures, setGroupType } from '@/lib/pet'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { GetServerSidePropsContext } from 'next'
-import {
-  Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  Image,
-} from '@chakra-ui/react'
-import { getNewPet } from '@/api/pet'
-import { useEffect, useState } from 'react'
-import Layout from '@/components/Layout'
-import ViewPet from '@/components/ViewPet'
+import Head from 'next/head'
+import Image from 'next/image'
+import { Inter } from '@next/font/google'
+import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+import { useToast, Text } from '@chakra-ui/react'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [data, setData] = useState<PetDesType | null>(null)
-
-  useEffect(() => {
-    let ignore = false
-    function fetchData() {
-      if (data) {
-        return
-      }
-      getNewPet().then((res) => {
-        const data = res.data
-        setGroupType(1, data.groupType)
-        setFeatures([], data.property)
-        if (!ignore) {
-          setData(data)
-        }
-      })
-    }
-    fetchData()
-    return () => {
-      ignore = true
-    }
-  }, [data])
+  const toast = useToast()
 
   return (
-    <Layout>
-      <TableContainer>
-        <Table variant="striped" colorScheme="teal">
-          <TableCaption>最新宠物信息表</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>编号</Th>
-              <Th>名称</Th>
-              <Th>图</Th>
-              <Th>颜色</Th>
-              <Th>系别</Th>
-              <Th>获取</Th>
-              <Th>描述</Th>
-              <Th>详情</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {data
-              ? data.pet.map((pet) => (
-                  <Tr key={pet.id}>
-                    <Td>{pet.id}</Td>
-                    <Td>{pet.name}</Td>
-                    <Td paddingInlineEnd={'unset'}>
-                      <Image
-                        src={`https://res.17roco.qq.com/res/combat/icons/${pet.id}-.png?fileVersion=202011231232`}
-                        alt={`${pet.name}的图片${pet.id}`}
-                        borderRadius="lg"
-                        boxSize="36px"
-                      />
-                    </Td>
-                    <Td>{pet.color}</Td>
-                    <Td>{setFeatures(pet.features)}</Td>
-                    <Td>{pet.getForm}</Td>
-                    <Td>{pet.description}</Td>
-                    <Td>
-                      <ViewPet pet={pet} />
-                    </Td>
-                  </Tr>
-                ))
-              : null}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Layout>
+    <>
+      <Head>
+        <title>欢迎来到 - 垃圾洛克王国</title>
+        <meta name="description" content="欢迎来到 - 垃圾洛克王国" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className={styles.main}>
+        <div className={styles.description}>
+          <p>
+            感谢&nbsp;
+            <a href="https://vercel.com/" target="_blank" rel="noreferrer">
+              <code className={styles.code}>Vercel</code>
+            </a>
+            &nbsp;的服务器，以及&nbsp;
+            <a href="https://supabase.com/" target="_blank" rel="noreferrer">
+              <code className={styles.code}>Supabase</code>
+            </a>
+            &nbsp;的数据库
+          </p>
+          <div>
+            <a
+              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              By{' '}
+              <Image
+                src="/vercel.svg"
+                alt="Vercel Logo"
+                className={styles.vercelLogo}
+                width={100}
+                height={24}
+                priority
+              />
+            </a>
+          </div>
+        </div>
+
+        <div className={styles.center}>
+          <Image
+            className={styles.logo}
+            src="/next.svg"
+            alt="Next.js Logo"
+            width={180}
+            height={37}
+            priority
+          />
+          <div className={styles.thirteen}>
+            <Image
+              src="/thirteen.svg"
+              alt="13"
+              width={40}
+              height={31}
+              priority
+            />
+          </div>
+        </div>
+
+        <div className={styles.grid}>
+          <Link
+            href="/pets"
+            onClick={() =>
+              toast({
+                title: `加载宠物信息，速度取决于你的网络`,
+                position: 'top',
+                isClosable: true,
+              })
+            }
+            className={styles.card}
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              宠物 <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              查看数据中的宠物信息，例如：编号、名字、简介、图片以及天赋值等。
+            </p>
+          </Link>
+
+          <Link
+            href="/skills"
+            onClick={() =>
+              toast({
+                title: `加载技能信息，速度取决于你的网络`,
+                position: 'top',
+                isClosable: true,
+              })
+            }
+            className={styles.card}
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              技能 <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              查看数据中的技能信息，例如：编号、名字、简介、威力等。
+            </p>
+          </Link>
+
+          <Link
+            href="/talents"
+            onClick={() =>
+              toast({
+                title: `加载血脉信息，速度取决于你的网络`,
+                position: 'top',
+                isClosable: true,
+              })
+            }
+            className={styles.card}
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              血脉 <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>查看全部血脉的编号、名称和描述。</p>
+          </Link>
+
+          <a
+            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            className={styles.card}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              Docs <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              Find in-depth information about Next.js features and&nbsp;API.
+            </p>
+          </a>
+        </div>
+      </main>
+      <footer className={styles.footer}>
+        <Text color="gray.300">
+          本项目由&nbsp;Catliar&nbsp;开发制作，数据来源于&nbsp;roco&nbsp;官方，请勿用于商业用途。
+        </Text>
+      </footer>
+    </>
   )
-}
-
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const supabase = createServerSupabaseClient(ctx)
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user || !user.confirmed_at) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: { user },
-  }
 }

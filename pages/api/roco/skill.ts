@@ -1,5 +1,5 @@
 import { getSkillConfig } from '@/lib/angel'
-import { SkillDes, skillDesJSON } from '@/lib/skill'
+import { SkillDes, SkillDesType } from '@/lib/skill'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
@@ -39,7 +39,7 @@ export default async function handler(
   /**
    * pet 分页
    */
-  function getPagingPet(skills: skillDesJSON['skill']) {
+  function getPagingPet(skills: SkillDesType['skill']) {
     const id = Number(req.query.id)
     if (id) {
       const pet = skills.find((pet) => pet.id === id)
