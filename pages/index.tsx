@@ -3,13 +3,11 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import { useToast, Text } from '@chakra-ui/react'
+import { Text } from '@nextui-org/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const toast = useToast()
-
   return (
     <>
       <Head>
@@ -71,18 +69,7 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
-          <Link
-            href="/pets"
-            onClick={() =>
-              toast({
-                title: `加载宠物信息，速度取决于你的网络`,
-                position: 'top',
-                isClosable: true,
-              })
-            }
-            className={styles.card}
-            rel="noopener noreferrer"
-          >
+          <Link href="/pets" className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
               宠物 <span>-&gt;</span>
             </h2>
@@ -93,13 +80,6 @@ export default function Home() {
 
           <Link
             href="/skills"
-            onClick={() =>
-              toast({
-                title: `加载技能信息，速度取决于你的网络`,
-                position: 'top',
-                isClosable: true,
-              })
-            }
             className={styles.card}
             rel="noopener noreferrer"
           >
@@ -113,13 +93,6 @@ export default function Home() {
 
           <Link
             href="/talents"
-            onClick={() =>
-              toast({
-                title: `加载血脉信息，速度取决于你的网络`,
-                position: 'top',
-                isClosable: true,
-              })
-            }
             className={styles.card}
             rel="noopener noreferrer"
           >
@@ -127,6 +100,13 @@ export default function Home() {
               血脉 <span>-&gt;</span>
             </h2>
             <p className={inter.className}>查看全部血脉的编号、名称和描述。</p>
+          </Link>
+
+          <Link href="/tools" className={styles.card} rel="noopener noreferrer">
+            <h2 className={inter.className}>
+              小工具 <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>双攻大队排行。</p>
           </Link>
 
           <a
@@ -145,7 +125,7 @@ export default function Home() {
         </div>
       </main>
       <footer className={styles.footer}>
-        <Text color="gray.300">
+        <Text color="#bdc3c7">
           本项目由&nbsp;Catliar&nbsp;开发制作，数据来源于&nbsp;roco&nbsp;官方，请勿用于商业用途。
         </Text>
       </footer>

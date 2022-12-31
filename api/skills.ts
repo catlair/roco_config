@@ -1,13 +1,17 @@
 import { skills } from '@/lib/local'
 import { SkillDesType } from '@/lib/skill'
-import useSWR from 'swr'
+import { useRequest } from 'ahooks'
+
+async function getSkills(): Promise<SkillDesType> {
+  if (skills.value) {
+    return skills.value
+  }
+  const res = await fetch('/api/roco/skill?type=all&pn=1&ps=30')
+  const json = await res.json()
+  skills.value = json.data
+  return skills.value
+}
 
 export function useSkills() {
-  return useSWR<SkillDesType>('/api/roco/skill?type=all&pn=1&ps=30', (url) =>
-    skills.value
-      ? skills.value
-      : fetch(url)
-          .then((res) => res.json())
-          .then((res) => (skills.value = res.data))
-  )
+  return useRequest(getSkills)
 }
