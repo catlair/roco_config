@@ -4,7 +4,7 @@ import { isAuthenticated } from '@/lib/auth'
 
 // Limit the middleware to paths starting with `/api/`
 export const config = {
-  matcher: '/api/:function*',
+  matcher: '/((?!api|login|_next/static|favicon.ico).*)',
 }
 
 export async function middleware(request: NextRequest, response: NextResponse) {
