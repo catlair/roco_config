@@ -7,7 +7,7 @@ import FullLoading from '@/components/Loading'
 const { Header: Thead, Cell: Td, Column: Th, Row: Tr, Body: Tbody } = Table
 
 async function getPet(): Promise<PetDesType> {
-  const res = await fetch('/api/roco/pet?type=all&pn=1&ps=12')
+  const res = await fetch('/api/roco/pet?type=all&pn=1&ps=10000')
   const json = await res.json()
   const data = json.data
   setGroupType(1, data.groupType)
@@ -55,6 +55,13 @@ export default function Pets() {
               </Tr>
             )) || []}
           </Tbody>
+          <Table.Pagination
+            shadow
+            noMargin
+            align="center"
+            rowsPerPage={10}
+            onPageChange={(page) => console.log({ page })}
+          />
         </Table>
       </FullLoading>
     </Layout>

@@ -97,7 +97,7 @@ export function setFeatures(features: number[]) {
   const props = getPetProperty()
   if (!props) return '解析错误'
   if (features.length === 1) return props[features[0]]
-  return features.map((f) => props![f - 1]).join('、')
+  return features.map((f) => props![f]).join('、')
 }
 
 let groups: PetDesType['groupType'] | undefined
