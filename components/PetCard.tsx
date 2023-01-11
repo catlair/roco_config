@@ -37,7 +37,7 @@ export default function PetCard({ pet }: { pet: PetType }) {
                 {pet.name}
               </Text>
               <Image
-                src={`https://res.17roco.qq.com/res/combat/icons/${pet.id}-.png?fileVersion=202011231232`}
+                src={`https://res.17roco.qq.com/res/combat/icons/${pet.iconSrc}?fileVersion=202011231232`}
                 alt={`${pet.name}的图片${pet.id}`}
                 style={{ borderRadius: '0.25rem' }}
                 width={60}

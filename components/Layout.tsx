@@ -1,3 +1,4 @@
+import { Switch } from '@nextui-org/react'
 import Head from 'next/head'
 
 export default function Layout({

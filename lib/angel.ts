@@ -13,10 +13,22 @@ export async function getAngelConfig() {
   return inflateSync(res.subarray(7))
 }
 
+export async function getXmlByTag(tag: string) {
+  return getTag((await getAngelConfig()).toString(), tag)
+}
+
 export async function getSpiritConfig() {
-  return getTag((await getAngelConfig()).toString(), 'SpiritConfig')
+  return getXmlByTag('SpiritConfig')
 }
 
 export async function getSkillConfig() {
-  return getTag((await getAngelConfig()).toString(), 'SpiritSkillConfig')
+  return getXmlByTag('SpiritSkillConfig')
+}
+
+export async function getMapConfig() {
+  return getXmlByTag('SceneConfig')
+}
+
+export async function getCaptureConfig() {
+  return getXmlByTag('spiritRect')
 }

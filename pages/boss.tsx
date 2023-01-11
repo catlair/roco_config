@@ -7,7 +7,7 @@ import FullLoading from '@/components/Loading'
 const { Header: Thead, Cell: Td, Column: Th, Row: Tr, Body: Tbody } = Table
 
 async function getPet(): Promise<PetDesType> {
-  const res = await fetch('/api/roco/pet?type=all&pn=1&ps=10000')
+  const res = await fetch('/api/roco/boss?pn=1&ps=100')
   const json = await res.json()
   const data = json.data
   setGroupType(1, data.groupType)
@@ -28,7 +28,6 @@ export default function Pets() {
             <Th>颜色</Th>
             <Th>系别</Th>
             <Th>获取</Th>
-            <Th>描述</Th>
             <Th>详情</Th>
           </Thead>
           <Tbody>
@@ -48,7 +47,6 @@ export default function Pets() {
                 <Td>{pet.color}</Td>
                 <Td>{setFeatures(pet.features)}</Td>
                 <Td>{pet.getForm}</Td>
-                <Td>{pet.description}</Td>
                 <Td>
                   <ViewPet pet={pet} />
                 </Td>

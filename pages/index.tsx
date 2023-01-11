@@ -102,11 +102,11 @@ export default function Home() {
             <p className={inter.className}>查看全部血脉的编号、名称和描述。</p>
           </Link>
 
-          <Link href="/tools" className={styles.card} rel="noopener noreferrer">
+          <Link href="/boss" className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
-              小工具 <span>-&gt;</span>
+              BOSS <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>双攻大队排行。</p>
+            <p className={inter.className}>临时</p>
           </Link>
 
           <a
