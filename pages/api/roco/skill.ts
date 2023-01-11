@@ -48,11 +48,15 @@ export default async function handler(
 
     const page = Number(req.query.pn) || 1,
       pageSize = Number(req.query.ps) || 20,
-      sort = req.query.sort || 'id',
+      sort = req.query.sort,
       boss = req.query.boss,
       start = (page - 1) * pageSize
 
-    let tempSkills = boss ? skills : skills.filter((pet) => pet.id < 5000)
+    const tempSkills = boss ? skills : skills.filter((pet) => pet.id < 5000)
+
+    if (!sort) {
+      return tempSkills.reverse().slice(start, start + pageSize)
+    }
 
     return tempSkills
       .sort((a, b) => {

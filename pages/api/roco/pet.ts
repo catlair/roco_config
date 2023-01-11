@@ -48,11 +48,15 @@ export default async function handler(
 
     const page = Number(req.query.pn) || 1,
       pageSize = Number(req.query.ps) || 20,
-      sort = req.query.sort || 'id',
+      sort = req.query.sort,
       boss = req.query.boss,
       start = (page - 1) * pageSize
 
-    let tempPets = boss ? pets : pets.filter((pet) => pet.id < 5000)
+    const tempPets = boss ? pets : pets.filter((pet) => pet.id < 5000)
+
+    if (!sort) {
+      return tempPets.reverse().slice(start, start + pageSize)
+    }
 
     return tempPets
       .sort((a, b) => {
