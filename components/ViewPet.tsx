@@ -1,14 +1,16 @@
 import PetCard, { PetType } from './PetCard'
-import { Button, Modal, useModal } from '@nextui-org/react'
+import { EyeIcon } from './EyeIcon'
+import { Modal, useModal } from '@nextui-org/react'
+import { IconButton } from './IconButton'
 
 export default function ViewPet({ pet }: { pet: PetType }) {
   const { setVisible, bindings } = useModal()
 
   return (
     <>
-      <Button size="sm" onPress={() => setVisible(true)}>
-        查看
-      </Button>
+      <IconButton onClick={() => setVisible(true)}>
+        <EyeIcon size={20} fill="#979797" />
+      </IconButton>
 
       <Modal
         autoMargin
@@ -20,6 +22,7 @@ export default function ViewPet({ pet }: { pet: PetType }) {
         style={{
           alignItems: 'center',
           justifyContent: 'center',
+          maxWidth: '100%',
         }}
       >
         <Modal.Body>

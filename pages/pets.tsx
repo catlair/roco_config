@@ -41,7 +41,7 @@ export default function Pets() {
                     src={`https://res.17roco.qq.com/res/combat/icons/${pet.iconSrc}?fileVersion=202011231232`}
                     alt={`${pet.name}的图片${pet.id}`}
                     height="2rem"
-                    style={{ borderRadius: '0.25rem' }}
+                    style={{ borderRadius: '0.25rem', minWidth: '2rem' }}
                     showSkeleton
                   />
                 </Td>

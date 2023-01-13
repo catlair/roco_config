@@ -15,7 +15,7 @@ const textStyles = { flexGrow: 1, minWidth: '46%', maxWidth: '50%' }
 export default function PetCard({ pet }: { pet: PetType }) {
   return (
     <>
-      <Card style={{ width: '500px' }}>
+      <Card>
         <Card.Body>
           <Grid
             style={{

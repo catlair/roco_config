@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout'
 import { getPetProperty } from '@/lib/local'
-import { useSkills } from '@/api/skills'
+import { useSkills } from '@/http/skills'
 import { Table } from '@nextui-org/react'
 import FullLoading from '@/components/Loading'
 const { Header: Thead, Cell: Td, Column: Th, Row: Tr, Body: Tbody } = Table
