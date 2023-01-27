@@ -1,69 +1,63 @@
-import { PetDesType, setFeatures, setGroupType } from '@/lib/pet'
-import { useRequest } from 'ahooks'
-import Layout from '@/components/Layout'
-import ViewPet from '@/components/ViewPet'
-import { Table, Image, Switch } from '@nextui-org/react'
-import FullLoading from '@/components/Loading'
-const { Header: Thead, Cell: Td, Column: Th, Row: Tr, Body: Tbody } = Table
+import PetTable from '@/components/PetTable'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Box from '@mui/material/Box'
+import { useState } from 'react'
 
-async function getPet(): Promise<PetDesType> {
-  const res = await fetch('/api/roco/pet?type=all&pn=1&ps=10000')
-  const json = await res.json()
-  const data = json.data
-  setGroupType(1, data.groupType)
-  return data
+interface TabPanelProps {
+  children?: React.ReactNode
+  index: number
+  value: number
 }
 
-export default function Pets() {
-  const { loading, data } = useRequest(getPet)
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props
 
   return (
-    <Layout>
-      <FullLoading isLoaded={!loading} text="宠物数据加载中...">
-        <Table aria-labelledby="table">
-          <Thead>
-            <Th>编号</Th>
-            <Th>名称</Th>
-            <Th>图</Th>
-            <Th>颜色</Th>
-            <Th>系别</Th>
-            <Th>获取</Th>
-            <Th>描述</Th>
-            <Th>详情</Th>
-          </Thead>
-          <Tbody>
-            {data?.pet.map((pet) => (
-              <Tr key={pet.id}>
-                <Td>{pet.id}</Td>
-                <Td>{pet.name}</Td>
-                <Td>
-                  <Image
-                    src={`https://res.17roco.qq.com/res/combat/icons/${pet.iconSrc}?fileVersion=202011231232`}
-                    alt={`${pet.name}的图片${pet.id}`}
-                    height="2rem"
-                    style={{ borderRadius: '0.25rem', minWidth: '2rem' }}
-                    showSkeleton
-                  />
-                </Td>
-                <Td>{pet.color}</Td>
-                <Td>{setFeatures(pet.features)}</Td>
-                <Td>{pet.getForm}</Td>
-                <Td>{pet.description}</Td>
-                <Td>
-                  <ViewPet pet={pet} />
-                </Td>
-              </Tr>
-            )) || []}
-          </Tbody>
-          <Table.Pagination
-            shadow
-            noMargin
-            align="center"
-            rowsPerPage={10}
-            onPageChange={(page) => console.log({ page })}
-          />
-        </Table>
-      </FullLoading>
-    </Layout>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && children}
+    </div>
+  )
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  }
+}
+
+export default function BasicTabs() {
+  const [value, setValue] = useState(0)
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue)
+  }
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label="普通宠物" {...a11yProps(0)} />
+          <Tab label="BOSS宠物" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+        <PetTable url={'/api/roco/pet?type=all&pn=1&ps=10000'} />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <PetTable url={'/api/roco/boss?pn=1&ps=5000'} />
+      </TabPanel>
+    </Box>
   )
 }

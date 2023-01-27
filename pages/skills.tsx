@@ -1,9 +1,10 @@
-import Layout from '@/components/Layout'
 import { getPetProperty } from '@/lib/local'
 import { useSkills } from '@/http/skills'
-import { Table } from '@nextui-org/react'
+
+import { GridColDef, zhCN } from '@mui/x-data-grid'
+import { useState } from 'react'
+import { StripedDataGrid } from '@/components/StripedDataGrid'
 import FullLoading from '@/components/Loading'
-const { Header: Thead, Cell: Td, Column: Th, Row: Tr, Body: Tbody } = Table
 
 function getSkillType(property: number, damageType: number) {
   const propertyStr = getPetProperty()[property]
@@ -23,37 +24,57 @@ function getDamageType(damageType: number) {
   }
 }
 
+const columns: GridColDef[] = [
+  { field: 'id', headerName: '编号', width: 70 },
+  { field: 'name', headerName: '名称', width: 150 },
+  {
+    field: 'power',
+    headerName: '威力',
+    width: 150,
+    valueGetter: ({ row }) => row.power ?? '--',
+  },
+  {
+    field: 'ppMax',
+    headerName: 'PP数',
+    width: 150,
+  },
+  {
+    field: 'property',
+    headerName: '技能类型',
+    width: 230,
+    valueGetter: ({ row }) => getSkillType(row.property, row.damageType),
+  },
+  { field: 'speed', headerName: '速度', width: 120 },
+  {
+    field: 'description',
+    headerName: '描述',
+    width: 500,
+    renderCell: ({ row }) => <p>{row.description}</p>,
+  },
+]
+
 export default function Skills() {
+  const [pageSize, setPageSize] = useState<number>(10)
   const { loading, data } = useSkills()
 
   return (
-    <Layout>
-      <FullLoading isLoaded={!loading} text="技能数据加载中...">
-        <Table aria-labelledby="table">
-          <Thead>
-            <Th>编号</Th>
-            <Th>名称</Th>
-            <Th>威力</Th>
-            <Th>PP数</Th>
-            <Th>技能类型</Th>
-            <Th>速度</Th>
-            <Th>描述</Th>
-          </Thead>
-          <Tbody>
-            {data?.skill.map((skill) => (
-              <Tr key={skill.id}>
-                <Td>{skill.id}</Td>
-                <Td>{skill.name}</Td>
-                <Td>{skill.power ?? '--'}</Td>
-                <Td>{'pp' + skill.ppMax}</Td>
-                <Td>{getSkillType(skill.property, skill.damageType)}</Td>
-                <Td>{skill.speed + '速'}</Td>
-                <Td>{skill.description}</Td>
-              </Tr>
-            )) || []}
-          </Tbody>
-        </Table>
+    <>
+      <FullLoading isLoaded={!loading}>
+        <div style={{ height: '100vh', width: '100%' }}>
+          <StripedDataGrid
+            rowHeight={140}
+            rows={data?.skill || []}
+            getRowClassName={(params) =>
+              params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+            }
+            columns={columns}
+            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            pageSize={pageSize}
+            rowsPerPageOptions={[5, 10, 15, 20, 50]}
+            localeText={zhCN.components.MuiDataGrid.defaultProps.localeText}
+          />
+        </div>
       </FullLoading>
-    </Layout>
+    </>
   )
 }

@@ -6,7 +6,7 @@ async function getSkills(): Promise<SkillDesType> {
   if (skills.value) {
     return skills.value
   }
-  const res = await fetch('/api/roco/skill?type=all&pn=1&ps=30')
+  const res = await fetch('/api/roco/skill?type=all&pn=1&ps=5000')
   const json = await res.json()
   skills.value = json.data
   return skills.value

@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import { Text } from '@nextui-org/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -109,6 +108,24 @@ export default function Home() {
             <p className={inter.className}>临时</p>
           </Link>
 
+          <Link
+            href="/active"
+            className={styles.card}
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              ActiveConfig <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>临时</p>
+          </Link>
+
+          <Link href="/rank" className={styles.card} rel="noopener noreferrer">
+            <h2 className={inter.className}>
+              双攻排行 <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>临时</p>
+          </Link>
+
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
@@ -125,9 +142,9 @@ export default function Home() {
         </div>
       </main>
       <footer className={styles.footer}>
-        <Text color="#bdc3c7">
+        <span className="text-gray-400">
           本项目由&nbsp;Catliar&nbsp;开发制作，数据来源于&nbsp;roco&nbsp;官方，请勿用于商业用途。
-        </Text>
+        </span>
       </footer>
     </>
   )

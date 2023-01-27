@@ -191,13 +191,13 @@ export function getDoubleAttackLimit(pets: PetDesType['pet']) {
     }
   }
 
-  const arr1 = okPets.map((p) => getLimit(p, '物攻 1.1', 1.1))
-  const arr2 = okPets.map((p) => getLimit(p, '魔攻 1.1', 1, 1.1))
+  const arr1 = okPets.map((p) => getLimit(p, '孤僻/调皮/勇敢', 1.1))
+  const arr2 = okPets.map((p) => getLimit(p, '稳重/马虎/冷静', 1, 1.1))
   const arr3 = okPets.map((p) => getLimit(p, '平衡'))
   const arr4 = okPets.map((p) => getLimit(p, '物攻 0.9', 0.9))
   const arr5 = okPets.map((p) => getLimit(p, '魔攻 0.9', 1, 0.9))
-  const arr6 = okPets.map((p) => getLimit(p, '物攻 1.1 魔攻 0.9', 1.1, 0.9))
-  const arr7 = okPets.map((p) => getLimit(p, '物攻 0.9 魔攻 1.1', 0.9, 1.1))
+  const arr6 = okPets.map((p) => getLimit(p, '固执', 1.1, 0.9))
+  const arr7 = okPets.map((p) => getLimit(p, '保守', 0.9, 1.1))
 
   return [...arr1, ...arr2, ...arr3, ...arr4, ...arr5, ...arr6, ...arr7].sort(
     (a, b) => b.double - a.double || a.id - b.id

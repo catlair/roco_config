@@ -1,32 +1,27 @@
-import { Loading, Container } from '@nextui-org/react'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 
 export default function FullLoading({
   isLoaded,
   children,
-  text,
 }: {
   isLoaded: boolean
-  children?: React.ReactNode
-  text?: string
+  children: JSX.Element | null
 }) {
-  return (
-    <Container
-      gap={0}
-      style={{
+  return isLoaded ? (
+    children
+  ) : (
+    <Box
+      sx={{
+        display: 'flex',
+        backgroundColor: '#bdc3c7',
         height: '100vh',
         width: '100vw',
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
-      {isLoaded ? (
-        children
-      ) : (
-        <Loading size="xl" color="secondary" textColor="secondary">
-          {text || 'Loading...'}
-        </Loading>
-      )}
-    </Container>
+      <CircularProgress size={90} />
+    </Box>
   )
 }
