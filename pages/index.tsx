@@ -101,13 +101,6 @@ export default function Home() {
             <p className={inter.className}>查看全部血脉的编号、名称和描述。</p>
           </Link>
 
-          <Link href="/boss" className={styles.card} rel="noopener noreferrer">
-            <h2 className={inter.className}>
-              BOSS <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>临时</p>
-          </Link>
-
           <Link
             href="/active"
             className={styles.card}

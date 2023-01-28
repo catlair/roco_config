@@ -21,6 +21,9 @@ const columns: GridColDef[] = [
     renderCell(params) {
       return params.row.no
     },
+    type: 'number',
+    align: 'center',
+    headerAlign: 'center',
   },
   { field: 'name', headerName: '名称', width: 200 },
   {

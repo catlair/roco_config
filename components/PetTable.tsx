@@ -23,7 +23,14 @@ const propCols: GridColDef[] = [
   headerAlign: 'center',
 }))
 const columns: GridColDef[] = [
-  { field: 'id', headerName: '编号', width: 70 },
+  {
+    field: 'id',
+    headerName: '编号',
+    width: 70,
+    type: 'number',
+    align: 'center',
+    headerAlign: 'center',
+  },
   { field: 'name', headerName: '名称', width: 110 },
   {
     field: 'iconSrc',
@@ -52,6 +59,9 @@ const columns: GridColDef[] = [
     width: 60,
     valueGetter: ({ row }: GridValueGetterParams) =>
       row.mg + row.mk + row.fy + row.wg + row.sd + row.sm,
+    type: 'number',
+    align: 'center',
+    headerAlign: 'center',
   },
   {
     field: 'sg',
@@ -59,6 +69,9 @@ const columns: GridColDef[] = [
     headerName: '双攻',
     width: 30,
     valueGetter: ({ row }: GridValueGetterParams) => row.mg + row.wg,
+    type: 'number',
+    align: 'center',
+    headerAlign: 'center',
   },
   ...propCols,
   {
