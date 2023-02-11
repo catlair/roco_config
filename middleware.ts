@@ -10,6 +10,12 @@ export const config = {
 export async function middleware(request: NextRequest, response: NextResponse) {
   if (!(await isAuthenticated(request, response))) {
     const { origin, pathname } = new URL(request.url)
+    if (pathname === '/') {
+      return
+    }
+    if (pathname.startsWith('/rank')) {
+      return
+    }
     if (pathname.startsWith('/api')) {
       return new NextResponse(
         JSON.stringify({ code: 401, message: 'authentication failed' }),
