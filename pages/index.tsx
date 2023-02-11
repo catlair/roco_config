@@ -119,6 +119,18 @@ export default function Home() {
             <p className={inter.className}>临时</p>
           </Link>
 
+          <Link
+            href="https://rcfb.2024666.xyz/"
+            target={'_blank'}
+            className={styles.card}
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              悟空封包 <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>简单编写悟空封包</p>
+          </Link>
+
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
