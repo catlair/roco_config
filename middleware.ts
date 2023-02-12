@@ -8,20 +8,20 @@ export const config = {
 }
 
 export async function middleware(request: NextRequest, response: NextResponse) {
+  const { pathname } = request.nextUrl
+  if (pathname === '/') {
+    return NextResponse.next()
+  }
+  if (pathname.startsWith('/rank')) {
+    return NextResponse.next()
+  }
   if (!(await isAuthenticated(request, response))) {
-    const { origin, pathname } = new URL(request.url)
-    if (pathname === '/') {
-      return
-    }
-    if (pathname.startsWith('/rank')) {
-      return
-    }
     if (pathname.startsWith('/api')) {
       return new NextResponse(
         JSON.stringify({ code: 401, message: 'authentication failed' }),
         { status: 401, headers: { 'content-type': 'application/json' } }
       )
     }
-    return NextResponse.redirect(`${origin}/login`)
+    return NextResponse.redirect(`/login`)
   }
 }
